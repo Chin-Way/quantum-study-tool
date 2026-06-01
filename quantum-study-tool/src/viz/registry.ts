@@ -14,6 +14,7 @@ export type Viz = LazyExoticComponent<ComponentType>;
 
 export const vizRegistry: Record<string, Viz> = {
   'isw-eigenstates': lazy(() => import('./plots/ISWEigenstates')),
+  'qho-eigenstates': lazy(() => import('./plots/QHOEigenstates')),
 };
 
 /** Look up a visualization component by id, or `undefined` if none is registered. */
