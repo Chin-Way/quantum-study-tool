@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { getTopic } from '../content/loader';
 import Markdown from './Markdown';
 import ProblemCard from './ProblemCard';
+import VizHost from '../viz/VizHost';
 
 export default function TopicPage() {
   const { id } = useParams();
@@ -30,6 +31,13 @@ export default function TopicPage() {
       <section className="notes">
         <Markdown>{topic.notes}</Markdown>
       </section>
+
+      {topic.viz && (
+        <section className="topic-viz">
+          <h2>Interactive</h2>
+          <VizHost id={topic.viz} />
+        </section>
+      )}
 
       {topic.problems.length > 0 && (
         <section className="problems">

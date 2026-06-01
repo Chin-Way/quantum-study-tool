@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Problem } from '../types';
 import Markdown from './Markdown';
+import VizHost from '../viz/VizHost';
 
 export default function ProblemCard({ problem, index }: { problem: Problem; index: number }) {
   const [showSolution, setShowSolution] = useState(false);
@@ -18,6 +19,8 @@ export default function ProblemCard({ problem, index }: { problem: Problem; inde
       <div className="problem-prompt">
         <Markdown>{problem.prompt}</Markdown>
       </div>
+
+      {problem.viz && <VizHost id={problem.viz} />}
 
       <button
         type="button"

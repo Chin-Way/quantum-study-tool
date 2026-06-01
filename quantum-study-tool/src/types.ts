@@ -21,6 +21,8 @@ export interface TopicMeta {
   level?: string;
   order: number;
   summary?: string;
+  /** Optional id of a visualization to embed in the topic (see src/viz/registry.ts). */
+  viz?: string | null;
 }
 
 /** A fully loaded topic: its metadata plus the notes and problems on disk. */

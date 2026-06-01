@@ -1,0 +1,29 @@
+[
+  {
+    "id": "qho-1",
+    "prompt": "The lowering operator annihilates the ground state, $a_-\\psi_0 = 0$. Use this to determine $\\psi_0(x)$ (up to normalization), and state its energy.",
+    "solution": "With $a_- = \\frac{1}{\\sqrt{2m\\hbar\\omega}}\\left(i\\hat{p} + m\\omega\\hat{x}\\right)$ and $\\hat{p} = -i\\hbar\\,d/dx$, the condition $a_-\\psi_0 = 0$ becomes\n\n$$\\left(\\hbar\\frac{d}{dx} + m\\omega x\\right)\\psi_0 = 0 \\;\\Rightarrow\\; \\frac{d\\psi_0}{\\psi_0} = -\\frac{m\\omega}{\\hbar}\\,x\\,dx.$$\n\nIntegrating gives a Gaussian, $\\psi_0(x) = A\\,e^{-m\\omega x^2 / 2\\hbar}$, and normalization fixes $A = (m\\omega/\\pi\\hbar)^{1/4}$. Since $\\hat{H} = \\hbar\\omega\\!\\left(a_+ a_- + \\tfrac12\\right)$ and $a_-\\psi_0 = 0$, its energy is $E_0 = \\tfrac12\\hbar\\omega$ — the zero-point energy.",
+    "difficulty": "easy",
+    "tags": ["ladder-operators", "ground-state"],
+    "source": "Griffiths 2.3",
+    "viz": null
+  },
+  {
+    "id": "qho-2",
+    "prompt": "For the ground state $\\psi_0$, compute $\\langle x \\rangle$, $\\langle p \\rangle$, $\\langle x^2 \\rangle$, and $\\langle p^2 \\rangle$, and verify that $\\psi_0$ saturates the uncertainty principle, $\\Delta x\\,\\Delta p = \\hbar/2$.",
+    "solution": "Because $\\psi_0(x) \\propto e^{-m\\omega x^2 / 2\\hbar}$ is even, parity gives $\\langle x \\rangle = 0$ and $\\langle p \\rangle = 0$. The Gaussian integrals yield\n\n$$\\langle x^2 \\rangle = \\frac{\\hbar}{2m\\omega}, \\qquad \\langle p^2 \\rangle = \\frac{m\\hbar\\omega}{2}.$$\n\nHence $\\Delta x = \\sqrt{\\hbar / 2m\\omega}$ and $\\Delta p = \\sqrt{m\\hbar\\omega / 2}$, so\n\n$$\\Delta x\\,\\Delta p = \\sqrt{\\frac{\\hbar}{2m\\omega}\\cdot\\frac{m\\hbar\\omega}{2}} = \\frac{\\hbar}{2}.$$\n\nThe ground state is therefore a minimum-uncertainty state. As a check, $\\langle T \\rangle = \\langle p^2\\rangle/2m = \\tfrac14\\hbar\\omega$ and $\\langle V \\rangle = \\tfrac12 m\\omega^2\\langle x^2\\rangle = \\tfrac14\\hbar\\omega$ sum to $E_0 = \\tfrac12\\hbar\\omega$.",
+    "difficulty": "medium",
+    "tags": ["uncertainty", "ground-state", "expectation-values"],
+    "source": "Griffiths 2.3",
+    "viz": null
+  },
+  {
+    "id": "qho-3",
+    "prompt": "Show that in any stationary state $\\psi_n$ the average kinetic and potential energies are equal, $\\langle T \\rangle = \\langle V \\rangle = \\tfrac12 E_n$ (the quantum virial theorem).",
+    "solution": "Write position and momentum in terms of ladder operators:\n\n$$\\hat{x} = \\sqrt{\\frac{\\hbar}{2m\\omega}}\\,(a_+ + a_-), \\qquad \\hat{p} = i\\sqrt{\\frac{m\\hbar\\omega}{2}}\\,(a_+ - a_-).$$\n\nIn $\\psi_n$ only the number-conserving terms survive (using $a_+ a_-\\,|n\\rangle = n\\,|n\\rangle$ and $a_- a_+\\,|n\\rangle = (n+1)\\,|n\\rangle$), giving\n\n$$\\langle x^2 \\rangle = \\frac{\\hbar}{m\\omega}\\!\\left(n + \\tfrac12\\right), \\qquad \\langle p^2 \\rangle = m\\hbar\\omega\\!\\left(n + \\tfrac12\\right).$$\n\nTherefore $\\langle V \\rangle = \\tfrac12 m\\omega^2 \\langle x^2 \\rangle = \\tfrac12\\!\\left(n+\\tfrac12\\right)\\hbar\\omega$ and $\\langle T \\rangle = \\langle p^2\\rangle/2m = \\tfrac12\\!\\left(n+\\tfrac12\\right)\\hbar\\omega$. Each is exactly half of $E_n = (n+\\tfrac12)\\hbar\\omega$.",
+    "difficulty": "medium",
+    "tags": ["virial-theorem", "ladder-operators", "expectation-values"],
+    "source": "Griffiths 2.3",
+    "viz": null
+  }
+]

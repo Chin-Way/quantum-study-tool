@@ -5,5 +5,6 @@
   "chapter": "2.2",
   "level": "undergraduate",
   "order": 2,
-  "summary": "A particle confined to a 1-D box: the simplest bound-state problem, and the template for everything that follows."
+  "summary": "A particle confined to a 1-D box: the simplest bound-state problem, and the template for everything that follows.",
+  "viz": "isw-eigenstates"
 }
