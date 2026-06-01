@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import type { Topic } from '../types';
 import { getTopic } from '../content/loader';
 import Markdown from './Markdown';
 import ProblemCard from './ProblemCard';
@@ -16,6 +17,11 @@ export default function TopicPage() {
       </div>
     );
   }
+
+  // Resolve related topic ids to topics, silently dropping any unknown ids.
+  const related = (topic.related ?? [])
+    .map((relatedId) => getTopic(relatedId))
+    .filter((t): t is Topic => Boolean(t));
 
   return (
     <article>
@@ -45,6 +51,22 @@ export default function TopicPage() {
           {topic.problems.map((p, i) => (
             <ProblemCard key={p.id} problem={p} index={i} />
           ))}
+        </section>
+      )}
+
+      {related.length > 0 && (
+        <section className="related">
+          <h2>Related topics</h2>
+          <ul className="related-list">
+            {related.map((t) => (
+              <li key={t.id} className="related-item">
+                <Link to={`/topic/${t.id}`} className="related-link">
+                  {t.title}
+                </Link>
+                {t.summary && <span className="related-summary">{t.summary}</span>}
+              </li>
+            ))}
+          </ul>
         </section>
       )}
     </article>
