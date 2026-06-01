@@ -1,9 +1,11 @@
 import ReactMarkdown from 'react-markdown';
 import type { Components } from 'react-markdown';
+import { isValidElement, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeMathjax from 'rehype-mathjax/svg';
+import { slugify } from '../content/toc';
 
 /**
  * Renders a Markdown-plus-LaTeX string. Every piece of content in the app —
@@ -19,7 +21,21 @@ import rehypeMathjax from 'rehype-mathjax/svg';
  * (e.g. [text](#/topic/harmonic-oscillator)) becomes a client-side <Link>, so
  * cross-references between topics navigate without a full page reload. External
  * http(s) links open in a new tab.
+ *
+ * Section headings get slug ids so the per-topic table of contents (see
+ * TopicPage / src/content/toc.ts) can scroll to them.
  */
+
+/** Flatten a heading's React children to plain text for slugging. */
+function headingText(children: ReactNode): string {
+  if (typeof children === 'string' || typeof children === 'number') return String(children);
+  if (Array.isArray(children)) return children.map(headingText).join('');
+  if (isValidElement(children)) {
+    return headingText((children.props as { children?: ReactNode }).children);
+  }
+  return '';
+}
+
 const components: Components = {
   a({ href, children, node: _node, ...rest }) {
     const url = href ?? '';
@@ -38,6 +54,20 @@ const components: Components = {
       <a href={url} {...rest}>
         {children}
       </a>
+    );
+  },
+  h2({ children, node: _node, ...rest }) {
+    return (
+      <h2 id={slugify(headingText(children))} {...rest}>
+        {children}
+      </h2>
+    );
+  },
+  h3({ children, node: _node, ...rest }) {
+    return (
+      <h3 id={slugify(headingText(children))} {...rest}>
+        {children}
+      </h3>
     );
   },
 };

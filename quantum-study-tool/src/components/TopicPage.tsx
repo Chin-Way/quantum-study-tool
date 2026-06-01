@@ -1,9 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
 import type { Topic } from '../types';
-import { getTopic } from '../content/loader';
+import { getAdjacentTopics, getTopic } from '../content/loader';
+import { extractHeadings } from '../content/toc';
 import Markdown from './Markdown';
 import ProblemCard from './ProblemCard';
 import VizHost from '../viz/VizHost';
+
+function scrollToSection(slug: string) {
+  document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 export default function TopicPage() {
   const { id } = useParams();
@@ -17,6 +22,9 @@ export default function TopicPage() {
       </div>
     );
   }
+
+  const headings = extractHeadings(topic.notes);
+  const { prev, next } = getAdjacentTopics(topic.id);
 
   // Resolve related topic ids to topics, silently dropping any unknown ids.
   const related = (topic.related ?? [])
@@ -32,6 +40,21 @@ export default function TopicPage() {
           {topic.book}
           {topic.chapter ? ` · ${topic.chapter}` : ''}
         </p>
+      )}
+
+      {headings.length > 1 && (
+        <nav className="toc" aria-label="Table of contents">
+          <span className="toc-title">Contents</span>
+          <ul>
+            {headings.map((h) => (
+              <li key={h.slug} className={`toc-item toc-depth-${h.depth}`}>
+                <button type="button" className="toc-link" onClick={() => scrollToSection(h.slug)}>
+                  {h.text}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
 
       <section className="notes">
@@ -68,6 +91,27 @@ export default function TopicPage() {
             ))}
           </ul>
         </section>
+      )}
+
+      {(prev || next) && (
+        <nav className="topic-nav" aria-label="Topic navigation">
+          {prev ? (
+            <Link to={`/topic/${prev.id}`} className="topic-nav-link topic-nav-prev">
+              <span className="topic-nav-dir">← Previous</span>
+              <span className="topic-nav-title">{prev.title}</span>
+            </Link>
+          ) : (
+            <span className="topic-nav-spacer" />
+          )}
+          {next ? (
+            <Link to={`/topic/${next.id}`} className="topic-nav-link topic-nav-next">
+              <span className="topic-nav-dir">Next →</span>
+              <span className="topic-nav-title">{next.title}</span>
+            </Link>
+          ) : (
+            <span className="topic-nav-spacer" />
+          )}
+        </nav>
       )}
     </article>
   );
