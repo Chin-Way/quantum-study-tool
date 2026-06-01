@@ -114,3 +114,16 @@ export function getBookSections(): BookSection[] {
       a.book.localeCompare(b.book),
   );
 }
+
+/** All topics in home-page reading order (book sections, flattened). */
+export function getOrderedTopics(): Topic[] {
+  return getBookSections().flatMap((s) => s.topics);
+}
+
+/** The previous and next topics around `id` in reading order. */
+export function getAdjacentTopics(id: string): { prev?: Topic; next?: Topic } {
+  const ordered = getOrderedTopics();
+  const index = ordered.findIndex((t) => t.id === id);
+  if (index === -1) return {};
+  return { prev: ordered[index - 1], next: ordered[index + 1] };
+}
