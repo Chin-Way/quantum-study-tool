@@ -23,6 +23,8 @@ export interface TopicMeta {
   summary?: string;
   /** Optional id of a visualization to embed in the topic (see src/viz/registry.ts). */
   viz?: string | null;
+  /** Optional ids of related topics, rendered as cross-links on the topic page. */
+  related?: string[];
 }
 
 /** A fully loaded topic: its metadata plus the notes and problems on disk. */

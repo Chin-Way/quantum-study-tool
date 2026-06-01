@@ -6,5 +6,6 @@
   "level": "undergraduate",
   "order": 3,
   "summary": "Any potential looks parabolic near a minimum, so this exactly solvable model is everywhere — and its evenly spaced ladder of levels is the gateway to quantized fields.",
-  "viz": "qho-eigenstates"
+  "viz": "qho-eigenstates",
+  "related": ["infinite-square-well", "postulates"]
 }

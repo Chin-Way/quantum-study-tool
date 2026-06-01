@@ -76,6 +76,7 @@ $$
 c_n = \int_0^a \psi_n^*(x)\,\Psi(x, 0)\,dx ,
 $$
 
-and each term then evolves in time by a phase $e^{-i E_n t / \hbar}$. This
-"expand, then let each piece rotate" strategy is the workhorse of the whole
-subject.
+and each term then [evolves in time](#/topic/postulates) by a phase
+$e^{-i E_n t / \hbar}$. This "expand, then let each piece rotate" strategy is the
+workhorse of the whole subject — you will meet it again in the
+[harmonic oscillator](#/topic/harmonic-oscillator).

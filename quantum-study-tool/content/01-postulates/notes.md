@@ -1,8 +1,8 @@
 # The Postulates of Quantum Mechanics
 
 Quantum mechanics rests on a small set of postulates. Everything else — the
-infinite square well, the hydrogen atom, scattering theory — follows from
-applying these rules to a specific system.
+[infinite square well](#/topic/infinite-square-well), the hydrogen atom,
+scattering theory — follows from applying these rules to a specific system.
 
 ## 1. The state
 

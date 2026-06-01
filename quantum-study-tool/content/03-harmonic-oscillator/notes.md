@@ -2,7 +2,7 @@
 
 Almost any potential looks like a parabola near a stable minimum, so the
 harmonic oscillator is the single most useful model in physics — from molecular
-vibrations to the quantized modes of a field. Like the infinite square well it
+vibrations to the quantized modes of a field. Like the [infinite square well](#/topic/infinite-square-well) it
 can be solved exactly, but its ladder of evenly spaced levels and its non-trivial
 eigenfunctions make it far richer.
 
