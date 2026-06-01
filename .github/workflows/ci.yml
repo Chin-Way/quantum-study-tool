@@ -1,0 +1,43 @@
+# Lightweight CI: type-check and build the Vite app on every PR.
+# The app lives in the quantum-study-tool/ subdirectory, so npm steps run there
+# while this workflow lives at the repository root (where GitHub discovers it).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Cancel superseded runs on the same ref so only the latest push is built.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: quantum-study-tool
+
+jobs:
+  build:
+    name: Type-check & build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: quantum-study-tool/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (tsc --noEmit && vite build)
+        run: npm run build
