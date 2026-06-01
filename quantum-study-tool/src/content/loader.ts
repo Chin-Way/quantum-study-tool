@@ -61,3 +61,56 @@ export const topics: Topic[] = buildTopics();
 export function getTopic(id: string): Topic | undefined {
   return topics.find((t) => t.id === id);
 }
+
+// --- Grouping for the home page ------------------------------------------------
+// Topics are grouped by book and ordered by level (undergraduate -> graduate ->
+// research) then by `order`, so the library scales from Griffiths toward
+// Sakurai/Shankar just by adding content — no code changes needed.
+
+/** Display ranking for levels (lowest first); unknown/absent levels sort last. */
+const LEVEL_RANK: Record<string, number> = {
+  undergraduate: 0,
+  graduate: 1,
+  research: 2,
+};
+const levelRank = (level?: string): number =>
+  level !== undefined && level in LEVEL_RANK ? LEVEL_RANK[level] : 99;
+
+/** A book's worth of topics, for sectioned display on the home page. */
+export interface BookSection {
+  /** Book display name, or 'Other' for topics with no `book`. */
+  book: string;
+  /** Distinct levels present in this book, ordered low → high. */
+  levels: string[];
+  /** Topics in this book, sorted by `order`. */
+  topics: Topic[];
+}
+
+/** Topics grouped into book sections, ordered for the home page. */
+export function getBookSections(): BookSection[] {
+  const byBook = new Map<string, Topic[]>();
+  for (const t of topics) {
+    const key = t.book ?? 'Other';
+    const list = byBook.get(key);
+    if (list) list.push(t);
+    else byBook.set(key, [t]);
+  }
+
+  const sections: BookSection[] = Array.from(byBook, ([book, ts]) => {
+    const sorted = [...ts].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    const levels = Array.from(
+      new Set(sorted.map((t) => t.level).filter((l): l is string => Boolean(l))),
+    ).sort((a, b) => levelRank(a) - levelRank(b));
+    return { book, levels, topics: sorted };
+  });
+
+  const minLevelRank = (s: BookSection) => Math.min(...s.topics.map((t) => levelRank(t.level)));
+  const minOrder = (s: BookSection) => Math.min(...s.topics.map((t) => t.order ?? 0));
+
+  return sections.sort(
+    (a, b) =>
+      minLevelRank(a) - minLevelRank(b) ||
+      minOrder(a) - minOrder(b) ||
+      a.book.localeCompare(b.book),
+  );
+}

@@ -187,3 +187,15 @@ h2 { font-size: 1.35rem; margin-top: 2rem; }
 .related-item:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(79, 70, 229, 0.08); }
 .related-link { font-weight: 600; }
 .related-summary { display: block; color: var(--ink-soft); font-size: 0.9rem; margin-top: 0.2rem; }
+
+/* --- Book sections (home) --------------------------------------------------- */
+.book-section { margin: 2rem 0; }
+.book-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+.book-title { font-size: 1.2rem; margin: 0; }
+.book-level { color: var(--ink-soft); font-size: 0.8rem; text-transform: capitalize; }
