@@ -1,0 +1,11 @@
+[
+  {
+    "id": "post-1",
+    "prompt": "Show that the Schrödinger equation preserves normalization: if $\\int_{-\\infty}^{\\infty} |\\psi|^2\\,dx = 1$ at $t = 0$, then $\\frac{d}{dt}\\int_{-\\infty}^{\\infty} |\\psi(x,t)|^2\\,dx = 0$ for all $t$.",
+    "solution": "Differentiate under the integral and use the Schrödinger equation. With $\\frac{\\partial \\psi}{\\partial t} = \\frac{i\\hbar}{2m}\\frac{\\partial^2 \\psi}{\\partial x^2} - \\frac{i}{\\hbar}V\\psi$ (and its complex conjugate for $\\psi^*$), the potential terms cancel and the integrand becomes a total derivative:\n\n$$\\frac{d}{dt}\\int_{-\\infty}^{\\infty} |\\psi|^2\\,dx = \\frac{i\\hbar}{2m}\\left[\\psi^*\\frac{\\partial \\psi}{\\partial x} - \\psi\\frac{\\partial \\psi^*}{\\partial x}\\right]_{-\\infty}^{\\infty}.$$\n\nFor any normalizable state $\\psi \\to 0$ as $|x| \\to \\infty$, so the boundary term vanishes and the derivative is zero. Probability is conserved.",
+    "difficulty": "medium",
+    "tags": ["normalization", "probability-current"],
+    "source": "Griffiths 1.4",
+    "viz": null
+  }
+]

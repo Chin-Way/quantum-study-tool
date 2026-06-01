@@ -1,0 +1,29 @@
+[
+  {
+    "id": "isw-1",
+    "prompt": "For a particle in the $n$-th stationary state of the infinite square well, compute the expectation value $\\langle x \\rangle$.",
+    "solution": "$$\\langle x \\rangle = \\int_0^a x\\,|\\psi_n|^2\\,dx = \\frac{2}{a}\\int_0^a x\\,\\sin^2\\!\\left(\\frac{n\\pi x}{a}\\right) dx.$$\n\nUsing $\\sin^2\\theta = \\tfrac{1}{2}(1 - \\cos 2\\theta)$, the integral evaluates to $\\frac{2}{a}\\cdot\\frac{a^2}{4} = \\frac{a}{2}$. So $\\langle x \\rangle = a/2$ for **every** $n$ — the particle sits, on average, at the center of the well, exactly as the symmetry about $x = a/2$ demands.",
+    "difficulty": "easy",
+    "tags": ["expectation-values", "stationary-states"],
+    "source": "Griffiths 2.4",
+    "viz": null
+  },
+  {
+    "id": "isw-2",
+    "prompt": "Show that $\\langle p \\rangle = 0$ in any stationary state $\\psi_n$ of the infinite square well.",
+    "solution": "$$\\langle p \\rangle = \\int_0^a \\psi_n^*\\left(-i\\hbar\\frac{d}{dx}\\right)\\psi_n\\,dx = -\\frac{2i\\hbar}{a}\\cdot\\frac{n\\pi}{a}\\int_0^a \\sin\\!\\left(\\frac{n\\pi x}{a}\\right)\\cos\\!\\left(\\frac{n\\pi x}{a}\\right) dx.$$\n\nThe integrand is $\\tfrac{1}{2}\\sin(2n\\pi x / a)$, which integrates to zero over the whole number of half-periods that fit in $[0, a]$. Hence $\\langle p \\rangle = 0$. (You could also argue $\\langle p \\rangle = m\\,\\frac{d\\langle x\\rangle}{dt} = 0$ since $\\langle x \\rangle = a/2$ is constant.)",
+    "difficulty": "medium",
+    "tags": ["expectation-values", "momentum"],
+    "source": "Griffiths 2.4",
+    "viz": null
+  },
+  {
+    "id": "isw-3",
+    "prompt": "Find the spacing $\\Delta E_n = E_{n+1} - E_n$ between adjacent energy levels, and explain how it depends on the width $a$ of the well.",
+    "solution": "$$\\Delta E_n = \\frac{\\pi^2\\hbar^2}{2ma^2}\\left[(n+1)^2 - n^2\\right] = \\frac{(2n+1)\\,\\pi^2\\hbar^2}{2ma^2}.$$\n\nThe spacing grows linearly with $n$ (higher levels are farther apart) and scales as $1/a^2$: a wider well has more closely spaced levels. As $a \\to \\infty$ the spectrum becomes continuous, recovering the free particle.",
+    "difficulty": "medium",
+    "tags": ["energy-levels", "scaling"],
+    "source": "Griffiths 2.2",
+    "viz": null
+  }
+]

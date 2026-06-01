@@ -1,0 +1,9 @@
+{
+  "id": "infinite-square-well",
+  "title": "The Infinite Square Well",
+  "book": "Griffiths",
+  "chapter": "2.2",
+  "level": "undergraduate",
+  "order": 2,
+  "summary": "A particle confined to a 1-D box: the simplest bound-state problem, and the template for everything that follows."
+}

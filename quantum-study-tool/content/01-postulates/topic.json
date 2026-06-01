@@ -1,0 +1,9 @@
+{
+  "id": "postulates",
+  "title": "The Postulates of Quantum Mechanics",
+  "book": "Griffiths",
+  "chapter": "Ch. 1 & 3",
+  "level": "undergraduate",
+  "order": 1,
+  "summary": "The rules of the game: states, observables, measurement, and time evolution."
+}
