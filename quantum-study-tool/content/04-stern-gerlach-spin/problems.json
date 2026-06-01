@@ -1,0 +1,29 @@
+[
+  {
+    "id": "sg-1",
+    "prompt": "In the $S_z$ basis, $S_x = \\frac{\\hbar}{2}\\big(|+\\rangle\\langle-| + |-\\rangle\\langle+|\\big)$. Show that $|S_x;\\pm\\rangle = \\frac{1}{\\sqrt{2}}\\big(|+\\rangle \\pm |-\\rangle\\big)$ are eigenstates of $S_x$, and give their eigenvalues.",
+    "solution": "Note $S_x|+\\rangle = \\frac{\\hbar}{2}|-\\rangle$ and $S_x|-\\rangle = \\frac{\\hbar}{2}|+\\rangle$. Then\n\n$$S_x\\,|S_x;\\pm\\rangle = \\frac{1}{\\sqrt{2}}\\,\\frac{\\hbar}{2}\\big(|-\\rangle \\pm |+\\rangle\\big) = \\pm\\frac{\\hbar}{2}\\cdot\\frac{1}{\\sqrt{2}}\\big(|+\\rangle \\pm |-\\rangle\\big) = \\pm\\frac{\\hbar}{2}\\,|S_x;\\pm\\rangle.$$\n\nSo the eigenvalues are $\\pm\\hbar/2$ — the two outcomes of an $S_x$ measurement.",
+    "difficulty": "medium",
+    "tags": ["spin", "dirac-notation", "eigenstates"],
+    "source": "Sakurai 1.1",
+    "viz": null
+  },
+  {
+    "id": "sg-2",
+    "prompt": "Using $S_i = \\frac{\\hbar}{2}\\sigma_i$ and the Pauli matrices, verify the commutation relation $[S_x, S_y] = i\\hbar\\,S_z$.",
+    "solution": "Since $[S_x, S_y] = \\frac{\\hbar^2}{4}[\\sigma_x, \\sigma_y]$, compute the products:\n\n$$\\sigma_x\\sigma_y = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}\\begin{pmatrix} 0 & -i \\\\ i & 0 \\end{pmatrix} = \\begin{pmatrix} i & 0 \\\\ 0 & -i \\end{pmatrix} = i\\sigma_z, \\qquad \\sigma_y\\sigma_x = -i\\sigma_z.$$\n\nHence $[\\sigma_x, \\sigma_y] = 2i\\sigma_z$, and\n\n$$[S_x, S_y] = \\frac{\\hbar^2}{4}\\,(2i\\sigma_z) = i\\hbar\\,\\frac{\\hbar}{2}\\sigma_z = i\\hbar\\,S_z.$$",
+    "difficulty": "medium",
+    "tags": ["spin", "pauli-matrices", "commutators"],
+    "source": "Sakurai 1.4",
+    "viz": null
+  },
+  {
+    "id": "sg-3",
+    "prompt": "An $S_z = +\\hbar/2$ beam is sent through an $\\hat{x}$-oriented SG apparatus; its $S_x = +\\hbar/2$ output is then sent through a $\\hat{z}$-oriented apparatus. What fraction of the atoms leaving the second apparatus emerge with $S_z = -\\hbar/2$?",
+    "solution": "The state entering the third apparatus is $|S_x;+\\rangle = \\frac{1}{\\sqrt{2}}\\big(|+\\rangle + |-\\rangle\\big)$, so\n\n$$P(S_z = -\\tfrac{\\hbar}{2}) = |\\langle - | S_x;+\\rangle|^2 = \\left|\\frac{1}{\\sqrt{2}}\\right|^2 = \\frac{1}{2}.$$\n\nHalf. The original $S_z = +\\hbar/2$ preparation is irrelevant — the intervening $S_x$ measurement erased it, which is precisely the sense in which $S_x$ and $S_z$ are incompatible.",
+    "difficulty": "easy",
+    "tags": ["spin", "measurement", "sequential-stern-gerlach"],
+    "source": "Sakurai 1.1",
+    "viz": null
+  }
+]

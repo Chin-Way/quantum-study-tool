@@ -1,0 +1,10 @@
+{
+  "id": "stern-gerlach-spin",
+  "title": "Stern–Gerlach and Spin-½",
+  "book": "Sakurai",
+  "chapter": "1.1",
+  "level": "graduate",
+  "order": 1,
+  "summary": "The two-state spin system: how a beam of silver atoms forces quantum mechanics into Hilbert space, kets, and incompatible observables.",
+  "related": ["postulates"]
+}
