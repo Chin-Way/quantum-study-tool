@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import type { Topic } from '../types';
 import { getAdjacentTopics, getTopic } from '../content/loader';
 import { extractHeadings } from '../content/toc';
+import { toggleBookmark, useBookmarks, useSolved } from '../progress';
 import Markdown from './Markdown';
 import ProblemCard from './ProblemCard';
 import VizHost from '../viz/VizHost';
@@ -13,6 +14,8 @@ function scrollToSection(slug: string) {
 export default function TopicPage() {
   const { id } = useParams();
   const topic = id ? getTopic(id) : undefined;
+  const bookmarks = useBookmarks();
+  const solved = useSolved();
 
   if (!topic) {
     return (
@@ -25,6 +28,8 @@ export default function TopicPage() {
 
   const headings = extractHeadings(topic.notes);
   const { prev, next } = getAdjacentTopics(topic.id);
+  const isBookmarked = bookmarks.has(topic.id);
+  const solvedCount = topic.problems.filter((p) => solved.has(p.id)).length;
 
   // Resolve related topic ids to topics, silently dropping any unknown ids.
   const related = (topic.related ?? [])
@@ -34,7 +39,17 @@ export default function TopicPage() {
   return (
     <article>
       <Link to="/" className="back">← All topics</Link>
-      <h1>{topic.title}</h1>
+      <div className="topic-title-row">
+        <h1>{topic.title}</h1>
+        <button
+          type="button"
+          className="bookmark-toggle"
+          aria-pressed={isBookmarked}
+          onClick={() => toggleBookmark(topic.id)}
+        >
+          {isBookmarked ? '★ Bookmarked' : '☆ Bookmark'}
+        </button>
+      </div>
       {topic.book && (
         <p className="topic-book">
           {topic.book}
@@ -70,7 +85,12 @@ export default function TopicPage() {
 
       {topic.problems.length > 0 && (
         <section className="problems">
-          <h2>Problems</h2>
+          <h2>
+            Problems
+            <span className="solved-count">
+              {solvedCount} / {topic.problems.length} solved
+            </span>
+          </h2>
           {topic.problems.map((p, i) => (
             <ProblemCard key={p.id} problem={p} index={i} />
           ))}
