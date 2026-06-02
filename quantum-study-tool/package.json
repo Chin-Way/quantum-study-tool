@@ -6,7 +6,8 @@
   "description": "A personal, browser-based quantum mechanics study tool.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "node scripts/check-content.mjs && tsc --noEmit && vite build",
+    "check:content": "node scripts/check-content.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
