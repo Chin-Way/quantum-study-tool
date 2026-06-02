@@ -2,15 +2,20 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getBookSections } from '../content/loader';
 import { filterOptions, searchTopics } from '../content/search';
+import { useBookmarks, useSolved } from '../progress';
 
 export default function TopicList() {
   const [query, setQuery] = useState('');
   const [book, setBook] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [tag, setTag] = useState('');
+  const [bookmarkedOnly, setBookmarkedOnly] = useState(false);
 
+  const solved = useSolved();
+  const bookmarks = useBookmarks();
   const options = useMemo(() => filterOptions(), []);
-  const isFiltering = query.trim() !== '' || book !== '' || difficulty !== '' || tag !== '';
+  const isFiltering =
+    query.trim() !== '' || book !== '' || difficulty !== '' || tag !== '' || bookmarkedOnly;
 
   const matchIds = useMemo(
     () => searchTopics({ query, book, difficulty, tag }),
@@ -21,9 +26,14 @@ export default function TopicList() {
   const sections = useMemo(
     () =>
       getBookSections()
-        .map((s) => ({ ...s, topics: s.topics.filter((t) => matchIds.has(t.id)) }))
+        .map((s) => ({
+          ...s,
+          topics: s.topics.filter(
+            (t) => matchIds.has(t.id) && (!bookmarkedOnly || bookmarks.has(t.id)),
+          ),
+        }))
         .filter((s) => s.topics.length > 0),
-    [matchIds],
+    [matchIds, bookmarkedOnly, bookmarks],
   );
   const total = sections.reduce((n, s) => n + s.topics.length, 0);
 
@@ -32,6 +42,7 @@ export default function TopicList() {
     setBook('');
     setDifficulty('');
     setTag('');
+    setBookmarkedOnly(false);
   };
 
   return (
@@ -71,6 +82,14 @@ export default function TopicList() {
               <option key={t} value={t}>{t}</option>
             ))}
           </select>
+          <button
+            type="button"
+            className={bookmarkedOnly ? 'filter-toggle filter-toggle-on' : 'filter-toggle'}
+            aria-pressed={bookmarkedOnly}
+            onClick={() => setBookmarkedOnly((v) => !v)}
+          >
+            ★ Bookmarked
+          </button>
           {isFiltering && (
             <button type="button" className="search-clear" onClick={clear}>
               Clear
@@ -94,15 +113,31 @@ export default function TopicList() {
           </header>
 
           <ul className="topic-list">
-            {section.topics.map((t) => (
-              <li key={t.id} className="topic-card">
-                <Link to={`/topic/${t.id}`} className="topic-card-link">
-                  <span className="topic-title">{t.title}</span>
-                  {t.chapter && <span className="topic-book">{t.chapter}</span>}
-                </Link>
-                {t.summary && <p className="topic-summary">{t.summary}</p>}
-              </li>
-            ))}
+            {section.topics.map((t) => {
+              const solvedCount = t.problems.filter((p) => solved.has(p.id)).length;
+              const bookmarked = bookmarks.has(t.id);
+              return (
+                <li key={t.id} className="topic-card">
+                  <Link to={`/topic/${t.id}`} className="topic-card-link">
+                    <span className="topic-title">
+                      {bookmarked && (
+                        <span className="bookmark-star" title="Bookmarked">★</span>
+                      )}
+                      {t.title}
+                    </span>
+                    <span className="topic-meta">
+                      {t.problems.length > 0 && (
+                        <span className="topic-progress">
+                          {solvedCount}/{t.problems.length}
+                        </span>
+                      )}
+                      {t.chapter && <span className="topic-book">{t.chapter}</span>}
+                    </span>
+                  </Link>
+                  {t.summary && <p className="topic-summary">{t.summary}</p>}
+                </li>
+              );
+            })}
           </ul>
         </section>
       ))}
