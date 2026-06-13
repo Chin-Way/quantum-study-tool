@@ -8,6 +8,12 @@ each with its own README, language stats, and CI badge).
 
 This takes about 5 minutes. You only need to do it once.
 
+> **Fastest path:** if you have the [GitHub CLI](https://cli.github.com/)
+> (`gh auth login`), just run **`bash publish.sh`** from this `projects/`
+> folder — it creates and pushes all three project repos *and* your profile
+> repo in one go. The manual steps below are the fallback if you'd rather not
+> use a script.
+
 ---
 
 ## Step 0 — get the files onto your machine
